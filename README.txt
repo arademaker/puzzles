@@ -1,8 +1,6 @@
 
-
-
 Puzzle 1
-https://www.tptp.org/cgi-bin/SeeTPTP?Category=Problems&Domain=PUZ&File=PUZ001+1.p
+https://tptp.org/cgi-bin/SeeTPTP?Category=Problems&Domain=PUZ&File=PUZ001+1.p
 
 See Basic.lean
 
