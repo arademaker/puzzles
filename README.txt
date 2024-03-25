@@ -15,3 +15,9 @@ No one hates everyone.
 Agatha is not the butler.
 ---
 Agatha killed herself.
+
+
+The agatha profile:
+
+delphin mkprof --input agatha.txt --relations ~/r/lkb-src/src/tsdb/skeletons/english/Relations --skeleton agatha
+delphin process agatha -g ../erg.dat --full-forest --options='--disable-generalization'
