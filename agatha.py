@@ -114,14 +114,16 @@ conjecture, theory = None, {}
 for row in tsql.select('i-id mrs', ts):
     k = int(row[0])
     v = simplemrs.decode(row[1])
+    print(simplemrs.encode(v, properties=False, lnk=True, indent=True))
     
     frm = transform(v)
     if k == 10:
         conjecture = frm
     else:
+        print(frm)
         new_axiom(f'ax{k}', frm)
 
-show_axioms()
+# show_axioms()
 
 
 # manually rewriting to add the coref of Agatha = herself

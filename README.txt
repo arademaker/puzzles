@@ -26,7 +26,7 @@ delphin process agatha -g ../erg.dat --full-forest --options='--disable-generali
 
 Axioms obtained from the profile gold analyses dropping u and i vars:
 
-% python demo.py
+% python agatha.py
 
 ax1 ≔ ∃ x29, _aunt_n_of x29 ∧ (∃ x10, (∃ x16, Dreadbury = x16 ∧ (∃ e15, compound e15 x10 x16 ∧ Mansion = x10))
    ∧ (∃ x23, (∃ e28, compound e28 x23 x29 ∧ Agatha = x23) ∧ (∃ x3, (∃ e8 e9, person x3 ∧ _live_v_1 e8 x3 ∧ _in_p_state e9 e8 x10)
@@ -65,7 +65,7 @@ I could not prove
 
 Axioms obtained from the gold profile analyses with i and u vars:
 
-% python demo.py
+% python agatha.py
 
 ax1 ≔ ∃ i34 x29, _aunt_n_of x29 i34 ∧ (∃ x10, (∃ x16, Dreadbury = x16 ∧ (∃ e15, compound e15 x10 x16 ∧ Mansion = x10))
  ∧ (∃ x23, (∃ e28, compound e28 x23 x29 ∧ Agatha = x23) ∧ (∃ x3, (∃ e8 e9, person x3 ∧ _live_v_1 e8 x3 ∧ _in_p_state e9 e8 x10)
