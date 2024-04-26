@@ -1,0 +1,97 @@
+
+Someone who lives in Dreadbury Mansion killed Aunt Agatha.
+
+[ TOP: h0
+  INDEX: e2
+  RELS: < [ person<0:7> LBL: h4 ARG0: x3 ]
+          [ _some_q<0:7> LBL: h5 ARG0: x3 RSTR: h6 BODY: h7 ]
+          [ _live_v_1<12:17> LBL: h4 ARG0: e8 ARG1: x3 ]
+          [ _in_p_state<18:20> LBL: h4 ARG0: e9 ARG1: e8 ARG2: x10 ]
+          [ proper_q<21:38> LBL: h11 ARG0: x10 RSTR: h12 BODY: h13 ]
+          [ compound<21:38> LBL: h14 ARG0: e15 ARG1: x10 ARG2: x16 ]
+          [ proper_q<21:30> LBL: h17 ARG0: x16 RSTR: h18 BODY: h19 ]
+          [ named<21:30> LBL: h20 ARG0: x16 CARG: "Dreadbury" ]
+          [ named<31:38> LBL: h14 ARG0: x10 CARG: "Mansion" ]
+          [ _kill_v_1<39:45> LBL: h1 ARG0: e2 ARG1: x3 ARG2: x23 ]
+          [ proper_q<46:58> LBL: h24 ARG0: x23 RSTR: h25 BODY: h26 ]
+          [ compound<46:58> LBL: h27 ARG0: e28 ARG1: x23 ARG2: x29 ]
+          [ udef_q<46:50> LBL: h30 ARG0: x29 RSTR: h31 BODY: h32 ]
+          [ _aunt_n_of<46:50> LBL: h33 ARG0: x29 ARG1: i34 ]
+          [ named<51:57> LBL: h27 ARG0: x23 CARG: "Agatha" ] >
+  HCONS: < h0 qeq h1 h6 qeq h4 h12 qeq h14 h18 qeq h20 h25 qeq h27 h31 qeq h33 > ]
+
+
+(∃ i34 x29, _aunt_n_of x29 i34 ∧ (∃ x10, (∃ x16, Dreadbury = x16 ∧ (∃ e15, compound e15 x10 x16 ∧ Mansion = x10)) ∧
+  (∃ x23, (∃ e28, compound e28 x23 x29 ∧ Agatha = x23) ∧ (∃ x3, (∃ e8 e9, person x3 ∧ _live_v_1 e8 x3 ∧ _in_p_state e9 e8 x10)
+  ∧ (∃ e2, _kill_v_1 e2 x3 x23)))))
+
+-> uninstantiated vars were existential
+-> proper_q ~> should be consider as the sinal of proper name
+-> if the head of compound is ARG1 ~ if ARG1 is proper_q introduced var ~> compound is turned into equality 
+
+RESULT
+
+(∃ i34 x29, _aunt_n_of x29 i34 ∧ (∃ x10 x16, Dreadbury = x16 ∧ x16 = x10  ∧ Mansion = x10)
+  ∧ (∃ x23, x23 = x29 ∧ Agatha = x23) ∧ (∃ x3, (∃ e8 e9, person x3 ∧ _live_v_1 e8 x3 ∧ _in_p_state e9 e8 x10)
+  ∧ (∃ e2, _kill_v_1 e2 x3 x23)))))
+
+
+GOAL  ∃ x : u, lives x ∧ killed x agatha
+
+
+Why we need to keep the preposition eventualities
+
+- Agatha is in the Dreadbury Mansion (here we do need the var introduced by `in`)
+- Agatha slept in the Mansion (here it is not necessary)
+
+---
+
+Agatha, the butler, and Charles live in Dreadbury Mansion, and are the only people who live therein.
+
+[ TOP: h0
+  INDEX: e2
+  RELS: < [ udef_q<0:31> LBL: h4 ARG0: x3 RSTR: h5 BODY: h6 ]
+          [ proper_q<0:7> LBL: h7 ARG0: x8 RSTR: h9 BODY: h10 ]
+          [ named<0:6> LBL: h11 ARG0: x8 CARG: "Agatha" ]
+          [ udef_q<8:31> LBL: h13 ARG0: x14 RSTR: h15 BODY: h16 ]
+          [ implicit_conj<8:31> LBL: h17 ARG0: x3 ARG1: x8 ARG2: x14 ]
+          [ _the_q<8:11> LBL: h18 ARG0: x19 RSTR: h20 BODY: h21 ]
+          [ _butler_n_1<12:18> LBL: h22 ARG0: x19 ]
+          [ _and_c<20:23> LBL: h23 ARG0: x14 ARG1: x19 ARG2: x24 ]
+          [ proper_q<24:31> LBL: h25 ARG0: x24 RSTR: h26 BODY: h27 ]
+          [ named<24:31> LBL: h28 ARG0: x24 CARG: "Charles" ]
+          [ _live_v_1<32:36> LBL: h1 ARG0: e30 ARG1: x3 ]
+          [ _in_p_state<37:39> LBL: h1 ARG0: e31 ARG1: e30 ARG2: x32 ]
+          [ proper_q<40:58> LBL: h33 ARG0: x32 RSTR: h34 BODY: h35 ]
+          [ compound<40:58> LBL: h36 ARG0: e37 ARG1: x32 ARG2: x38 ]
+          [ proper_q<40:49> LBL: h39 ARG0: x38 RSTR: h40 BODY: h41 ]
+          [ named<40:49> LBL: h42 ARG0: x38 CARG: "Dreadbury" ]
+          [ named<50:57> LBL: h36 ARG0: x32 CARG: "Mansion" ]
+          [ _and_c<59:62> LBL: h1 ARG0: e2 ARG1: e30 ARG2: e45 ]
+          [ _be_v_id<63:66> LBL: h1 ARG0: e45 ARG1: x3 ARG2: x46 ]
+          [ _the_q<67:70> LBL: h47 ARG0: x46 RSTR: h48 BODY: h49 ]
+          [ _only_a_1<71:75> LBL: h50 ARG0: e51 ARG1: x46 ]
+          [ _people_n_of<76:82> LBL: h50 ARG0: x46 ARG1: i52 ]
+          [ _live_v_1<87:91> LBL: h50 ARG0: e53 ARG1: x46 ]
+          [ _therein_p_state<92:99> LBL: h50 ARG0: e54 ARG1: e53 ] >
+  HCONS: < h0 qeq h1 h5 qeq h17 h9 qeq h11 h15 qeq h23 h20 qeq h22 h26 qeq h28 h34 qeq h36 h40 qeq h42 h48 qeq h50 > ]
+
+(∃ i52 x32, (∃ x38, Dreadbury = x38 ∧ (∃ e37, compound e37 x32 x38 ∧ Mansion = x32)) ∧ (∃ x14, (∃ x24, Charles = x24 ∧ (∃ x19, _butler_n_1 x19 ∧ _and_c x14 x19 x24)) ∧ (∃ x46, (∃ e51 e53 e54, _only_a_1 e51 x46 ∧ _people_n_of x46 i52 ∧ _live_v_1 e53 x46 ∧ _therein_p_state e54 e53) ∧ (∃ x3, (∃ x8, Agatha = x8 ∧ implicit_conj x3 x8 x14) ∧ (∃ e30 e31 e2 e45, _live_v_1 e30 x3 ∧ _in_p_state e31 e30 x32 ∧ _and_c e2 e30 e45 ∧ _be_v_id e45 x3 x46)))))
+
+-> be_v_id can be transformed into equality
+
+-> flatten of coordination:
+
+  _and_c x14 x19 x24 /\ implicit_conj x3 x8 x14 ==> _and_c {x19, x24, x8}
+
+- _live_v_1 ~> distributive predicate /\ ARG1 is a conj ~> read as distributive
+
+  unfold live x if x is {x,y,z} ==>  live x /\ live y /\ live z
+
+
+RESULT
+
+(∃ i52 x32 x38, Dreadbury = x38 ∧ x32 = x38 ∧ Mansion = x32) ∧ (∃ x14, (∃ x24, Charles = x24 ∧ (∃ x19, _butler_n_1 x19 ∧ _and_c x14 x19 x24)) ∧ (∃ x46, (∃ e51 e53 e54, _only_a_1 e51 x46 ∧ _people_n_of x46 i52 ∧ _live_v_1 e53 x46 ∧ _therein_p_state e54 e53) ∧ (∃ x3, (∃ x8, Agatha = x8 ∧ implicit_conj x3 x8 x14) ∧ (∃ e30 e31 e2, _live_v_1 e30 x3 ∧ _in_p_state e31 e30 x32 ∧ _and_c e2 e30 e45 ∧ x3 = x46))))
+
+
+GOAL ∀ x, lives x → x = agatha ∨ x = butler ∨ x = charles
