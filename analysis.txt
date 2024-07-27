@@ -27,13 +27,14 @@ Someone who lives in Dreadbury Mansion killed Aunt Agatha.
 
 -> uninstantiated vars were existential
 -> proper_q ~> should be consider as the sinal of proper name
--> if the head of compound is ARG1 ~ if ARG1 is proper_q introduced var ~> compound is turned into equality 
+-> if the head of compound is ARG1 ~ if ARG1 is proper_q introduced var ~> compound is turned into equality
+-> we can't use equality ~> image two Mansions in the sentence
 
 RESULT
 
 (∃ i34 x29, _aunt_n_of x29 i34 ∧ (∃ x10 x16, Dreadbury = x16 ∧ x16 = x10  ∧ Mansion = x10)
   ∧ (∃ x23, x23 = x29 ∧ Agatha = x23) ∧ (∃ x3, (∃ e8 e9, person x3 ∧ _live_v_1 e8 x3 ∧ _in_p_state e9 e8 x10)
-  ∧ (∃ e2, _kill_v_1 e2 x3 x23)))))
+  ∧ (∃ e2, _kill_v_1 e2 x3 x23)))
 
 
 GOAL  ∃ x : u, lives x ∧ killed x agatha

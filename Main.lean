@@ -4,7 +4,6 @@ def main : IO Unit :=
   IO.println s!"Hello, {hello}!"
 
 
-
 section TestPlur
 
 variable (u x : Type)

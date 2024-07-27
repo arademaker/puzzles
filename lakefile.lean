@@ -11,7 +11,6 @@ lean_lib «Puzzles» where
 lean_exe «puzzles» where
   root := `Main
 
+-- require LeanCopilot from git "https://github.com/lean-dojo/LeanCopilot.git" @ "v1.1.0"
 
-require LeanCopilot from git "https://github.com/lean-dojo/LeanCopilot.git" @ "v1.1.0"
-
-require Paperproof from git "https://github.com/Paper-Proof/paperproof.git" @ "main"/"lean"
+-- require Paperproof from git "https://github.com/Paper-Proof/paperproof.git" @ "main"/"lean"
