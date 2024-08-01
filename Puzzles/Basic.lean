@@ -71,6 +71,7 @@ theorem result : killed agatha agatha := by
       exact hC_innocent h2
   done
 
+
 end tptp
 
 
@@ -79,11 +80,43 @@ section nl
 opaque u : Type
 opaque e : Type
 
-opaque hates : u → u → Prop
-opaque person : u → Prop
-opaque _hate_v_1 : e → u → u → Prop
+opaque  lives : u → Prop
+opaque  hates : u → u → Prop
+opaque killed : u → u → Prop
+opaque richer : u → u → Prop
 
-theorem test_aux (P : Prop) (Q : e → Prop) :
+opaque      person : u → Prop
+opaque   _in_p_dir : e → e → u → Prop
+opaque   _hate_v_1 : e → u → u → Prop
+opaque   _live_v_1 : e → u → Prop
+opaque   _kill_v_1 : e → u → u → Prop
+opaque   _except_p : e → u → u → Prop
+opaque  _rich_a_in : e → u → Prop
+opaque   more_comp : e → e → u → Prop
+opaque _butler_n_1 : u → Prop
+
+
+variable (agatha Agatha charles Charles : u)
+variable (haa : Agatha = agatha)
+variable (hcc : Charles = charles)
+
+
+theorem aux0 (P : u → Prop)
+  : ∀ c, (∃ x, c = x ∧ P x) ↔ P c := by
+  intro y
+  apply Iff.intro
+  intro h
+  apply Exists.elim h; clear h
+  intro x h1
+  rw [h1.left]
+  exact h1.right
+  intro h
+  apply Exists.intro y
+  exact And.intro rfl h
+  done
+
+
+theorem aux1 (P : Prop) (Q : e → Prop) :
   (∃ x, P ∧ Q x) ↔ P ∧ (∃ x, Q x) := by
    apply Iff.intro
    intro h
@@ -102,10 +135,40 @@ theorem test_aux (P : Prop) (Q : e → Prop) :
    exact And.intro h.left h2
    done
 
+
+theorem aux2 (P : e → u → u → Prop)
+  : ∀ c z, (∃ x, c = x ∧ ∃ e, P e x z) ↔ ∃ e, P e c z := by
+  intro y z
+  apply Iff.intro
+  intro h
+  apply Exists.elim h; clear h
+  intro x h1
+  rw [h1.left]
+  exact h1.right
+  intro h
+  apply Exists.intro y
+  exact And.intro rfl h
+  done
+
+
+theorem sentence0
+  (h₂ : ∀ x, person x ∧ (∃ e1, _live_v_1 e1 x ∧ ∃ e2, _in_p_dir e2 e1 Dreadbury)
+    ↔ lives x)
+  (h₃ : ∀ x y, (∃ e1, _kill_v_1 e1 x y) ↔ killed x y) :
+  (∃ x10, Dreadbury = x10 ∧ (∃ x3, (∃ e8 e9, person x3 ∧ _live_v_1 e8 x3 ∧ _in_p_dir e9 e8 x10)
+   ∧ (∃ x16, Agatha = x16 ∧ (∃ e2, _kill_v_1 e2 x3 x16))))
+   → (∃ x, lives x ∧ killed x agatha) := by
+  intro h1
+  simp [aux0] at h1
+  simp [h₃] at h1
+  simp [h₂] at h1
+  apply Exists.elim h1; clear h1
+  intro a h2; rw [haa] at h2
+  apply Exists.intro a ; exact h2
+  done
+
+
 theorem sentence3
-  (Agatha agatha charles Charles : u)
-  (hh₁ : Agatha = agatha)
-  (hh₄ : Charles = charles)
   (hh₂ : ∀ x y, (∃ e1, _hate_v_1 e1 x y) ↔ hates x y)
   (hh₃ : ∀ x y, hates x y → person x ∧ person y) :
   (∃ x15, Agatha = x15 ∧ (∃ x3, Charles = x3
@@ -113,7 +176,7 @@ theorem sentence3
     ¬(∃ e2, _hate_v_1 e2 x3 x9)))) →
     (∀ x, hates agatha x → ¬ hates charles x) := by
   intro h1 a
-  intro haa hca
+  intro Haa Hca
   apply Exists.elim h1; clear h1
   intro a1
   intro h₂
@@ -121,19 +184,41 @@ theorem sentence3
   intro c
   intro h₄
   apply (h₄.right a)
-  rw [test_aux, hh₂]
+  rw [aux1, hh₂]
   apply And.intro
-  exact (hh₃ agatha a haa).right
-  rw [←h₂.left,hh₁]
-  exact haa
-  rw [hh₂,←h₄.left,hh₄]
-  exact hca
+  exact (hh₃ agatha a Haa).right
+  rw [←h₂.left, haa]
+  exact Haa
+  rw [hh₂,←h₄.left,hcc]
+  exact Hca
   done
 
-opaque _rich_a_in : e → u → Prop
-opaque more_comp : e → e → u → Prop
-opaque _butler_n_1 : u → Prop
-opaque richer : u → u → Prop
+
+theorem sentence4
+  (h₁ : ∀ x y, (∃ e1, _hate_v_1 e1 x y) ↔ hates x y)
+  (h₂ : ∀ x y, (∃ e, _except_p e x y) ↔ x ≠ y)
+  (h₃ : Agatha = agatha)
+  (h₄ : ∀ x, _butler_n_1 x ↔ x = butler)
+  (h₅ : ∀ x, _butler_n_1 x → person x)
+  (h₆ : agatha ≠ butler) :
+  (∀ x9, (∃ x15, _butler_n_1 x15 ∧ (∃ e14, person x9 ∧ _except_p e14 x9 x15))
+    → (∃ x3, Agatha = x3 ∧ (∃ e2, _hate_v_1 e2 x3 x9)))
+    → (∀ x, x ≠ butler → hates agatha x) := by
+  intro h1 a h2
+  have h3 := h1 a; clear h1
+  simp [h₂] at h3
+  simp [h₁] at h3
+  rw [haa] at h3
+  apply (h3 butler)
+  { apply (h₄ butler).2; rfl }
+  {
+    apply (h₅ a)
+    apply (h₄ a).2
+    sorry
+  }
+  exact h2
+  done
+
 
 theorem sentence5
   (h₂ : ∀ x y, (∃ e1 e2, _rich_a_in e1 x ∧ more_comp e2 e1 y) ↔ richer x y)
@@ -160,6 +245,7 @@ theorem sentence5
   exact h7.right
   done
 
+
 theorem sentence7
   (h₁ : ∀ x y, (∃ e1, _hate_v_1 e1 x y) ↔ hates x y)
   (h₂ : ∀ x y, hates x y → person x ∧ person y) :
@@ -175,5 +261,6 @@ theorem sentence7
   rw [h₁]
   exact h3 b
   done
+
 
 end nl
