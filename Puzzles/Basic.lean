@@ -188,11 +188,6 @@ theorem sentence1 :
    → (∀ x, lives x → x = agatha ∨ x = butler ∨ x = charles) := by
    sorry
 
--- Agatha, the butler, and Charles live in Dreadbury, and are the only people who live therein.
-
-#check ∃ S, S = (λ x => Agatha = x ∨ butler = x ∨ charles = x) ∧ ∃ e, _live_v_1 e46 ∧ arg1 e46 = S
-
-
 
 theorem sentence2
  (h₁ : ∀ e1, _never_a_1 e1 P ↔ ¬ P) :
@@ -205,6 +200,7 @@ theorem sentence2
   ∧ (∃ e25 e27, _rich_a_in e25 x3 ∧ more_comp e27 e25 x28))))))
   → (∀ x y, killed x y → hates x y) ∧ (∀ x y, killed x y → ¬richer x y) := by
   sorry
+
 
 theorem sentence3
   (hh₂ : ∀ x y, (∃ e1, _hate_v_1 e1 x y) ↔ hates x y)
