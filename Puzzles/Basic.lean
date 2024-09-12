@@ -94,7 +94,6 @@ opaque     _rich_a_in : e → u → Prop
 opaque      more_comp : e → e → u → Prop
 opaque    _butler_n_1 : u → Prop
 opaque       _be_v_id : e → u → u → Prop
-opaque         _and_c : u → u → u → Prop
 opaque  implicit_conj : u → u → u → Prop
 opaque   _people_n_of : u → Prop
 opaque _therein_p_dir : e → e → Prop
@@ -105,6 +104,8 @@ opaque    _killer_n_1 : u → Prop
 opaque    _always_a_1 : e → Prop
 opaque           poss : e → u → u → Prop
 opaque           pron : u → Prop
+
+opaque         _and_c {α : Type} : α → α → α → Prop
 
 variable (agatha Agatha charles Charles butler : u)
 variable (haa : Agatha = agatha)
@@ -189,16 +190,33 @@ theorem sentence1 :
    sorry
 
 
+/- translation error. The next theorem is a manually fixed version -/
+#check (∃ e2 e22 e9 x10,
+ (∃ x16, pron x16
+ ∧ (∃ e15, poss e15 x10 x16
+ ∧ _victim_n_of x10))
+ ∧ (∃ x34, pron x34
+ ∧ (∃ x3, _killer_n_1 x3
+ ∧ (∃ e22, _always_a_1 e9
+ ∧ _hate_v_1 e9 x3 x10
+ ∧ _and_c e2 e9 e22
+ ∧ _never_a_1 e22 (∃ x28, (∃ e9 e9 e2 e33, poss e33 x28 x34 ∧ _victim_n_of x28)
+  ∧ (∃ e25 e27, _rich_a_in e25 x3 ∧ more_comp e27 e25 x28))))))
+→ (∀ x y, killed x y → hates x y) ∧ (∀ x y, killed x y → ¬richer x y)
+
 theorem sentence2
  (h₁ : ∀ e1, _never_a_1 e1 P ↔ ¬ P) :
- (∃ e2 e22 e9 x10, (∃ x16, pron x16
-  ∧ (∃ e15, poss e15 x10 x16 ∧ _victim_n_of x10))
-  ∧ (∃ x34, pron x34 ∧ (∃ x3, _killer_n_1 x3
-  ∧ (∃ e22, _always_a_1 e9 ∧ _hate_v_1 e9 x3 x10
-  ∧ _and_c e2 e9 e22
-  ∧ _never_a_1 e22 (∃ x28, (∃ e9 e9 e2 e33, poss e33 x28 x34 ∧ _victim_n_of x28)
+ (∃ e2 e9 x10,
+ (∃ x16, pron x16 ∧ (∃ e15, poss e15 x10 x16
+  ∧ _victim_n_of x10))
+ ∧ (∃ x34, pron x34
+ ∧ (∃ x3, _killer_n_1 x3
+ ∧ (∃ e22, _always_a_1 e9
+ ∧ _hate_v_1 e9 x3 x10
+ ∧ _and_c e2 e9 e22
+ ∧ _never_a_1 e22 (∃ x28, (∃ e33, poss e33 x28 x34 ∧ _victim_n_of x28)
   ∧ (∃ e25 e27, _rich_a_in e25 x3 ∧ more_comp e27 e25 x28))))))
-  → (∀ x y, killed x y → hates x y) ∧ (∀ x y, killed x y → ¬richer x y) := by
+→ (∀ x y, killed x y → hates x y) ∧ (∀ x y, killed x y → ¬richer x y) := by
   sorry
 
 
