@@ -13,10 +13,9 @@ section tptp
 
 variable (u : Type)
 
-variable (lives : u → Prop)
-
-variable (killed hates richer : u → u → Prop)
 variable (agatha butler charles : u)
+variable (lives : u → Prop)
+variable (killed hates richer : u → u → Prop)
 
 variable (pel55_1 : ∃ x : u, lives x ∧ killed x agatha)
 variable (pel55_2_1 : lives agatha)
@@ -85,18 +84,29 @@ opaque  hates : u → u → Prop
 opaque killed : u → u → Prop
 opaque richer : u → u → Prop
 
-opaque      person : u → Prop
-opaque   _in_p_dir : e → e → u → Prop
-opaque   _hate_v_1 : e → u → u → Prop
-opaque   _live_v_1 : e → u → Prop
-opaque   _kill_v_1 : e → u → u → Prop
-opaque   _except_p : e → u → u → Prop
-opaque  _rich_a_in : e → u → Prop
-opaque   more_comp : e → e → u → Prop
-opaque _butler_n_1 : u → Prop
+opaque         person : u → Prop
+opaque      _in_p_dir : e → e → u → Prop
+opaque      _hate_v_1 : e → u → u → Prop
+opaque      _live_v_1 : e → u → Prop
+opaque      _kill_v_1 : e → u → u → Prop
+opaque      _except_p : e → u → u → Prop
+opaque     _rich_a_in : e → u → Prop
+opaque      more_comp : e → e → u → Prop
+opaque    _butler_n_1 : u → Prop
+opaque       _be_v_id : e → u → u → Prop
+opaque         _and_c : u → u → u → Prop
+opaque  implicit_conj : u → u → u → Prop
+opaque   _people_n_of : u → Prop
+opaque _therein_p_dir : e → e → Prop
+opaque      _only_a_1 : e → u → Prop
+opaque     _never_a_1 : e → Prop → Prop
+opaque   _victim_n_of : u → Prop
+opaque    _killer_n_1 : u → Prop
+opaque    _always_a_1 : e → Prop
+opaque           poss : e → u → u → Prop
+opaque           pron : u → Prop
 
-
-variable (agatha Agatha charles Charles : u)
+variable (agatha Agatha charles Charles butler : u)
 variable (haa : Agatha = agatha)
 variable (hcc : Charles = charles)
 
@@ -168,6 +178,34 @@ theorem sentence0
   done
 
 
+theorem sentence1 :
+  (∃ x32, Dreadbury = x32 ∧ (∃ x14, (∃ x24, Charles = x24 ∧ (∃ x19, _butler_n_1 x19
+   ∧ _and_c x14 x19 x24)) ∧ (∃ x39, (∃ e44 e46 e47, _only_a_1 e44 x39
+   ∧ _people_n_of x39 ∧ _live_v_1 e46 x39 ∧ _therein_p_dir e47 e46)
+   ∧ (∃ x3, (∃ x8, Agatha = x8 ∧ implicit_conj x3 x8 x14)
+   ∧ (∃ e30 e31 e2 e38, _live_v_1 e30 x3 ∧ _in_p_dir e31 e30 x32
+   ∧ _and_c e2 e30 e38 ∧ _be_v_id e38 x3 x39)))))
+   → (∀ x, lives x → x = agatha ∨ x = butler ∨ x = charles) := by
+   sorry
+
+-- Agatha, the butler, and Charles live in Dreadbury, and are the only people who live therein.
+
+#check ∃ S, S = (λ x => Agatha = x ∨ butler = x ∨ charles = x) ∧ ∃ e, _live_v_1 e46 ∧ arg1 e46 = S
+
+
+
+theorem sentence2
+ (h₁ : ∀ e1, _never_a_1 e1 P ↔ ¬ P) :
+ (∃ e2 e22 e9 x10, (∃ x16, pron x16
+  ∧ (∃ e15, poss e15 x10 x16 ∧ _victim_n_of x10))
+  ∧ (∃ x34, pron x34 ∧ (∃ x3, _killer_n_1 x3
+  ∧ (∃ e22, _always_a_1 e9 ∧ _hate_v_1 e9 x3 x10
+  ∧ _and_c e2 e9 e22
+  ∧ _never_a_1 e22 (∃ x28, (∃ e9 e9 e2 e33, poss e33 x28 x34 ∧ _victim_n_of x28)
+  ∧ (∃ e25 e27, _rich_a_in e25 x3 ∧ more_comp e27 e25 x28))))))
+  → (∀ x y, killed x y → hates x y) ∧ (∀ x y, killed x y → ¬richer x y) := by
+  sorry
+
 theorem sentence3
   (hh₂ : ∀ x y, (∃ e1, _hate_v_1 e1 x y) ↔ hates x y)
   (hh₃ : ∀ x y, hates x y → person x ∧ person y) :
@@ -212,11 +250,11 @@ theorem sentence4
   apply (h3 butler)
   { apply (h₄ butler).2; rfl }
   {
-    apply (h₅ a)
-    apply (h₄ a).2
+    have h5 := h₅ a
+    have h6 := (h₄ a).1
     sorry
   }
-  exact h2
+  { exact h2 }
   done
 
 
@@ -246,12 +284,27 @@ theorem sentence5
   done
 
 
+theorem sentence6
+ (h₁ : ∀ x y, (∃ e1, _hate_v_1 e1 x y) ↔ hates x y)
+ (h₂ : ∀ x y, hates x y → person x ∧ person y)
+ (h₃ : ∀ x, _butler_n_1 x ↔ x = butler) :
+ (∀ x8, (∃ x14, Agatha = x14 ∧ (∃ e19, person x8 ∧ _hate_v_1 e19 x14 x8))
+  → (∃ x3, _butler_n_1 x3 ∧ (∃ e2, _hate_v_1 e2 x3 x8)))
+  → (∀ x, hates agatha x → hates butler x) := by
+  intro h1 a h2
+  have h3 := h1 a; clear h1
+  simp [h₁] at h3; rw [haa] at h3
+  have h4 := h3 (h₂ agatha a h2).2 h2 ; clear h3
+  simp [h₃] at h4
+  assumption
+  done
+
+
 theorem sentence7
   (h₁ : ∀ x y, (∃ e1, _hate_v_1 e1 x y) ↔ hates x y)
   (h₂ : ∀ x y, hates x y → person x ∧ person y) :
   (∀ x3, person x3 → ¬(∀ x8, person x8 → (∃ e2, _hate_v_1 e2 x3 x8)))
-   → ¬(∃ x, ∀ y, hates x y) :=
-  by
+   → ¬(∃ x, ∀ y, hates x y) := by
   intro h1 h2
   apply Exists.elim h2; clear h2
   intro a h3
@@ -260,6 +313,23 @@ theorem sentence7
   intro b _
   rw [h₁]
   exact h3 b
+  done
+
+
+theorem sentence8
+ (h₁ : ∀ x, _butler_n_1 x ↔ x = butler)
+ (h₂ : ∀ x y, (∃ e1, _be_v_id e1 x y) ↔ x = y) :
+ ¬(∃ x10, _butler_n_1 x10 ∧ (∃ x3, Agatha = x3 ∧ (∃ e2, _be_v_id e2 x3 x10)))
+  → agatha ≠ butler := by
+  intro h1 h2
+  apply h1
+  simp [aux0]
+  apply Exists.intro butler
+  have h3 := (h₁ butler).2 rfl
+  apply And.intro
+  exact h3
+  rw [h₂]
+  rw [← haa] at h2 ; exact h2
   done
 
 
