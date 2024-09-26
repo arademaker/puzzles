@@ -162,6 +162,8 @@ theorem aux2 (P : e → u → u → Prop)
   done
 
 
+/- Someone who lives in Dreadbury Mansion killed Aunt Agatha. -/
+
 theorem sentence0
   (h₂ : ∀ x, person x ∧ (∃ e1, _live_v_1 e1 x ∧ ∃ e2, _in_p_dir e2 e1 Dreadbury)
     ↔ lives x)
@@ -179,6 +181,9 @@ theorem sentence0
   done
 
 
+/- Agatha, the butler, and Charles live in Dreadbury Mansion,
+   and are the only people who live therein. -/
+
 theorem sentence1 :
   (∃ x32, Dreadbury = x32 ∧ (∃ x14, (∃ x24, Charles = x24 ∧ (∃ x19, _butler_n_1 x19
    ∧ _and_c x14 x19 x24)) ∧ (∃ x39, (∃ e44 e46 e47, _only_a_1 e44 x39
@@ -187,10 +192,14 @@ theorem sentence1 :
    ∧ (∃ e30 e31 e2 e38, _live_v_1 e30 x3 ∧ _in_p_dir e31 e30 x32
    ∧ _and_c e2 e30 e38 ∧ _be_v_id e38 x3 x39)))))
    → (∀ x, lives x → x = agatha ∨ x = butler ∨ x = charles) := by
-   sorry
+  intro h1 p h2
+  simp [aux0,aux1,aux2] at h1
+  sorry
 
 
-/- translation error. The next theorem is a manually fixed version -/
+/- A killer always hates his victim, and is never richer than his victim.
+   obs: translation error. The next theorem is a manually fixed version -/
+
 #check (∃ e2 e22 e9 x10,
  (∃ x16, pron x16
  ∧ (∃ e15, poss e15 x10 x16
@@ -217,8 +226,12 @@ theorem sentence2
  ∧ _never_a_1 e22 (∃ x28, (∃ e33, poss e33 x28 x34 ∧ _victim_n_of x28)
   ∧ (∃ e25 e27, _rich_a_in e25 x3 ∧ more_comp e27 e25 x28))))))
 → (∀ x y, killed x y → hates x y) ∧ (∀ x y, killed x y → ¬richer x y) := by
+  intro h1
+  simp [aux0,aux1,h₁] at h1
   sorry
 
+
+/- Charles hates no one that Aunt Agatha hates. -/
 
 theorem sentence3
   (hh₂ : ∀ x y, (∃ e1, _hate_v_1 e1 x y) ↔ hates x y)
@@ -246,31 +259,22 @@ theorem sentence3
   done
 
 
+/- Agatha hates everyone except the butler. -/
+
 theorem sentence4
   (h₁ : ∀ x y, (∃ e1, _hate_v_1 e1 x y) ↔ hates x y)
   (h₂ : ∀ x y, (∃ e, _except_p e x y) ↔ x ≠ y)
-  (h₃ : Agatha = agatha)
+  (h₃ : ∀ x y, hates x y → person x ∧ person y)
   (h₄ : ∀ x, _butler_n_1 x ↔ x = butler)
   (h₅ : ∀ x, _butler_n_1 x → person x)
   (h₆ : agatha ≠ butler) :
   (∀ x9, (∃ x15, _butler_n_1 x15 ∧ (∃ e14, person x9 ∧ _except_p e14 x9 x15))
     → (∃ x3, Agatha = x3 ∧ (∃ e2, _hate_v_1 e2 x3 x9)))
     → (∀ x, x ≠ butler → hates agatha x) := by
-  intro h1 a h2
-  have h3 := h1 a; clear h1
-  simp [h₂] at h3
-  simp [h₁] at h3
-  rw [haa] at h3
-  apply (h3 butler)
-  { apply (h₄ butler).2; rfl }
-  {
-    have h5 := h₅ a
-    have h6 := (h₄ a).1
-    sorry
-  }
-  { exact h2 }
-  done
+  sorry
 
+
+/- The butler hates everyone not richer than Aunt Agatha. -/
 
 theorem sentence5
   (h₂ : ∀ x y, (∃ e1 e2, _rich_a_in e1 x ∧ more_comp e2 e1 y) ↔ richer x y)
@@ -298,6 +302,8 @@ theorem sentence5
   done
 
 
+/- The butler hates everyone Aunt Agatha hates. -/
+
 theorem sentence6
  (h₁ : ∀ x y, (∃ e1, _hate_v_1 e1 x y) ↔ hates x y)
  (h₂ : ∀ x y, hates x y → person x ∧ person y)
@@ -314,6 +320,8 @@ theorem sentence6
   done
 
 
+/- No one hates everyone. -/
+
 theorem sentence7
   (h₁ : ∀ x y, (∃ e1, _hate_v_1 e1 x y) ↔ hates x y)
   (h₂ : ∀ x y, hates x y → person x ∧ person y) :
@@ -329,6 +337,8 @@ theorem sentence7
   exact h3 b
   done
 
+
+/- Agatha is not the butler. -/
 
 theorem sentence8
  (h₁ : ∀ x, _butler_n_1 x ↔ x = butler)
