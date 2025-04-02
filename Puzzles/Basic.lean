@@ -35,6 +35,8 @@ variable (pel55_10' : ¬ ∃ x, ∀ y, lives y → hates x y)
 
 variable (pel55_11 : agatha ≠ butler)
 
+
+
 theorem result : killed agatha agatha := by
   have ⟨n,h1,h2⟩ := pel55_1
   have h3 := pel55_3 n h1

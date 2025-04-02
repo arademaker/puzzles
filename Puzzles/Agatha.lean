@@ -22,8 +22,11 @@ opaque victim : u → Prop
 opaque possessive : u → Prop
 
 variable (lit : String → u)
+variable (uset : (u → Prop) → u)
+
 variable (charles : u)
 variable (arg1 arg2 : u → u)
+
 
 -- 1. Someone who lives in Dreadbury Mansion killed Aunt Agatha.
 variable (h1 :
@@ -45,7 +48,7 @@ variable (h2 :
  ∧ ∀ s, (S s → ∃ l, (live l ∧ arg1 l = s ∧ arg2 l = m)))
  ∧ ∃ r, (∃ n, (name n ∧ arg1 n = r ∧ arg2 n = lit "Dreadbury")
  ∧ ∃ P, (P = (λ p => person p ∧ ∃ l, (live l ∧ arg1 l = p ∧ arg2 l = r))
- ∧ ∃ o, (only o ∧ arg1 o = S ∧ arg2 o = P))))
+ ∧ ∃ o, (only o ∧ arg1 o = uset S ∧ arg2 o = uset P))))
 )
 
 -- 3. A killer always hates his victim, and is never richer than his victim.
